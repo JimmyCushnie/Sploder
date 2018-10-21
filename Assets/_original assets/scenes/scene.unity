@@ -214,7 +214,7 @@ MonoBehaviour:
   m_SerializedData:
     prefab: {fileID: 4492923175500129098, guid: 58cc2d566f0131e448c54d57b1694554,
       type: 3}
-    count: 30000
+    count: 100000
 --- !u!114 &192119714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,8 +316,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534669902}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: -0.10378635, y: 0.8162684, z: -0.1549512, w: -0.5467399}
+  m_LocalPosition: {x: 69.37553, y: 33.40447, z: 28.813301}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
