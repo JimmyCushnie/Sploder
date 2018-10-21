@@ -36,7 +36,7 @@ public class SpawnCubeSystem : ComponentSystem
                 MoveCube m = new MoveCube()
                 {
                     speed = 4,
-                    direction = new float3() { x = Random.Range(-5, 5), y = Random.Range(-5, 5), z = Random.Range(-5, 5) }
+                    direction = new float3() { x = Random.Range(-5f, 5f), y = Random.Range(-5f, 5f), z = Random.Range(-5f, 5f) }
                 };
                 EntityManager.SetComponentData(cubeEntity, m);
             }

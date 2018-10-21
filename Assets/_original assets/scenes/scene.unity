@@ -214,7 +214,7 @@ MonoBehaviour:
   m_SerializedData:
     prefab: {fileID: 4492923175500129098, guid: 58cc2d566f0131e448c54d57b1694554,
       type: 3}
-    count: 1
+    count: 30000
 --- !u!114 &192119714
 MonoBehaviour:
   m_ObjectHideFlags: 0
