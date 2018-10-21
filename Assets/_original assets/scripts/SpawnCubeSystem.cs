@@ -5,9 +5,10 @@ using Unity.Collections;
 using Unity.Transforms;
 using Unity.Mathematics;
 
+using Random = UnityEngine.Random;
+
 public class SpawnCubeSystem : ComponentSystem
 {
-#pragma warning disable 649
     struct Group
     {
         [ReadOnly]
@@ -19,7 +20,6 @@ public class SpawnCubeSystem : ComponentSystem
     }
 
     [Inject] Group m_Group;
-#pragma warning restore 649
 
     protected override void OnUpdate()
     {
@@ -31,6 +31,15 @@ public class SpawnCubeSystem : ComponentSystem
             var spawnedCubes = new NativeArray<Entity>(spawner.count, Allocator.Temp);
             EntityManager.Instantiate(spawner.prefab, spawnedCubes);
 
+            foreach(var cubeEntity in spawnedCubes)
+            {
+                MoveCube m = new MoveCube()
+                {
+                    speed = 4,
+                    direction = new float3() { x = Random.Range(-5, 5), y = Random.Range(-5, 5), z = Random.Range(-5, 5) }
+                };
+                EntityManager.SetComponentData(cubeEntity, m);
+            }
 
 
             spawnedCubes.Dispose();
