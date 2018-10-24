@@ -3,6 +3,7 @@ using Unity.Entities;
 using Unity.Collections;
 using Unity.Transforms;
 using UnityEngine;
+using CommandTerminal;
 
 public class MoveCubeSystem : ComponentSystem
 {
@@ -23,15 +24,35 @@ public class MoveCubeSystem : ComponentSystem
     {
         float dt = Time.deltaTime;
 
-        for(int i = 0; i < m_Group.Length; i++)
+        if (Clear)
         {
-            var cube = m_Group.Cube[i];
-            var position = m_Group.Position[i];
-            var entity = m_Group.Entity[i];
+            var entities = m_Group.Entity.ToArray();
 
-            position.Value += cube.direction * cube.speed * dt;
-
-            EntityManager.SetComponentData(entity, position);
+            for (int i = 0; i < entities.Length; i++)
+            {
+                EntityManager.DestroyEntity(entities[i]);
+            }
+            Clear = false;
         }
+        else
+        {
+            for (int i = 0; i < m_Group.Length; i++)
+            {
+                var cube = m_Group.Cube[i];
+                var position = m_Group.Position[i];
+                var entity = m_Group.Entity[i];
+
+                position.Value += cube.direction * cube.speed * dt;
+
+                EntityManager.SetComponentData(entity, position);
+            }
+        }
+    }
+
+    private static bool Clear;
+    [RegisterCommand()]
+    static void ResetCommand(CommandArg[] args)
+    {
+        Clear = true;
     }
 }
