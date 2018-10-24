@@ -1,61 +1,63 @@
-﻿using System;
-using Unity.Entities;
+﻿using Unity.Entities;
 using Unity.Collections;
 using Unity.Transforms;
 using UnityEngine;
 using CommandTerminal;
 
-public class MoveCubeSystem : ComponentSystem
+namespace Splosions
 {
-    struct Group
+    public class MoveCubeSystem : ComponentSystem
     {
-        [ReadOnly]
-
-        public ComponentDataArray<MoveCube> Cube;
-        public ComponentDataArray<Position> Position;
-
-        public EntityArray Entity;
-        public readonly int Length;
-    }
-
-    [Inject] Group m_Group;
-
-    protected override void OnUpdate()
-    {
-        float dt = Time.deltaTime;
-
-        for (int i = 0; i < m_Group.Length; i++)
+        struct Group
         {
-            var cube = m_Group.Cube[i];
-            var position = m_Group.Position[i];
-            var entity = m_Group.Entity[i];
+            [ReadOnly]
 
-            position.Value += cube.direction * cube.speed * dt;
+            public ComponentDataArray<MoveCube> Cube;
+            public ComponentDataArray<Position> Position;
 
-            EntityManager.SetComponentData(entity, position);
+            public EntityArray Entity;
+            public readonly int Length;
         }
-    }
 
-    static MoveCubeSystem Instance;
-    protected override void OnCreateManager()
-    {
-        Instance = this;
-    }
+        [Inject] Group m_Group;
 
-    [RegisterCommand()]
-    static void ResetCommand(CommandArg[] args)
-    {
-        Instance.UpdateInjectedComponentGroups();
+        protected override void OnUpdate()
+        {
+            float dt = Time.deltaTime;
 
-        var entities = Instance.m_Group.Entity.ToArray();
+            for (int i = 0; i < m_Group.Length; i++)
+            {
+                var cube = m_Group.Cube[i];
+                var position = m_Group.Position[i];
+                var entity = m_Group.Entity[i];
 
-        for (int i = 0; i < entities.Length; i++)
-            Instance.EntityManager.DestroyEntity(entities[i]);
-    }
+                position.Value += cube.direction * cube.speed * dt;
 
-    [RegisterCommand()]
-    static void Pause(CommandArg[] args)
-    {
-        Instance.Enabled = !Instance.Enabled;
+                EntityManager.SetComponentData(entity, position);
+            }
+        }
+
+        static MoveCubeSystem Instance;
+        protected override void OnCreateManager()
+        {
+            Instance = this;
+        }
+
+        [RegisterCommand()]
+        static void ResetCommand(CommandArg[] args)
+        {
+            Instance.UpdateInjectedComponentGroups();
+
+            var entities = Instance.m_Group.Entity.ToArray();
+
+            for (int i = 0; i < entities.Length; i++)
+                Instance.EntityManager.DestroyEntity(entities[i]);
+        }
+
+        [RegisterCommand()]
+        static void Pause(CommandArg[] args)
+        {
+            Instance.Enabled = !Instance.Enabled;
+        }
     }
 }
