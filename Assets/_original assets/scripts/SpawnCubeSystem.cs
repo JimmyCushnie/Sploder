@@ -1,7 +1,7 @@
 ﻿using Unity.Entities;
 using Unity.Collections;
 using Unity.Mathematics;
-using CommandTerminal;
+using CommandTerminalPlus;
 
 using Random = UnityEngine.Random;
 

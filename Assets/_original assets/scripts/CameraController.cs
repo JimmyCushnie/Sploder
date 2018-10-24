@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using CommandTerminalPlus;
 
 namespace Splosions
 {
@@ -6,7 +7,8 @@ namespace Splosions
     {
         [SerializeField] new Camera camera;
 
-        public static float speed = 50f;
+        [CommandTerminalPlus.RegisterVariable("CameraSpeed")]
+        public static float speed { get; set; } = 50f;
         public static float sensitivity = 0.01f;
 
         private void Move(Vector3 direction) => transform.position += direction * speed * Time.unscaledDeltaTime;
@@ -17,15 +19,19 @@ namespace Splosions
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+
+            Terminal.WhenTerminalOpens += Disable;
+            Terminal.WhenTerminalCloses += Enable;
         }
+
+        void Disable() => this.enabled = false;
+        void Enable() => this.enabled = true;
 
         void Update()
         {
             var deltaX = AxisValue("MouseX") * sensitivity * Time.unscaledDeltaTime;
             var deltaY = AxisValue("MouseY") * sensitivity * Time.unscaledDeltaTime;
             transform.Rotate(new Vector3(-deltaY, deltaX, 0));
-
-            //transform.localEulerAngles = new Vector3(deltaX, deltaY, transform.localEulerAngles.z);
 
             if (Axis("MoveUp"))
                 Move(transform.up);

@@ -2,7 +2,7 @@
 using Unity.Collections;
 using Unity.Transforms;
 using UnityEngine;
-using CommandTerminal;
+using CommandTerminalPlus;
 
 namespace Splosions
 {

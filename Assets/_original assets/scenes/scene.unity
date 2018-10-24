@@ -368,7 +368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHeight: 0.7
   SmallTerminalRatio: 0.33
-  ToggleSpeed: 360
+  ToggleSpeed: 1000
   ToggleHotkey: '`'
   ToggleFullHotkey: '#`'
   BufferSize: 512
