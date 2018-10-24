@@ -24,35 +24,36 @@ public class MoveCubeSystem : ComponentSystem
     {
         float dt = Time.deltaTime;
 
-        if (Clear)
+        for (int i = 0; i < m_Group.Length; i++)
         {
-            var entities = m_Group.Entity.ToArray();
+            var cube = m_Group.Cube[i];
+            var position = m_Group.Position[i];
+            var entity = m_Group.Entity[i];
 
-            for (int i = 0; i < entities.Length; i++)
-            {
-                EntityManager.DestroyEntity(entities[i]);
-            }
-            Clear = false;
-        }
-        else
-        {
-            for (int i = 0; i < m_Group.Length; i++)
-            {
-                var cube = m_Group.Cube[i];
-                var position = m_Group.Position[i];
-                var entity = m_Group.Entity[i];
+            position.Value += cube.direction * cube.speed * dt;
 
-                position.Value += cube.direction * cube.speed * dt;
-
-                EntityManager.SetComponentData(entity, position);
-            }
+            EntityManager.SetComponentData(entity, position);
         }
     }
 
-    private static bool Clear;
+    static MoveCubeSystem Instance;
+    protected override void OnCreateManager()
+    {
+        Instance = this;
+    }
+
     [RegisterCommand()]
     static void ResetCommand(CommandArg[] args)
     {
-        Clear = true;
+        var entities = Instance.m_Group.Entity.ToArray();
+
+        for (int i = 0; i < entities.Length; i++)
+            Instance.EntityManager.DestroyEntity(entities[i]);
+    }
+
+    [RegisterCommand()]
+    static void Pause(CommandArg[] args)
+    {
+        Instance.Enabled = !Instance.Enabled;
     }
 }
