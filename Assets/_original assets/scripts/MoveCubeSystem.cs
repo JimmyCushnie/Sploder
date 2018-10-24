@@ -45,6 +45,8 @@ public class MoveCubeSystem : ComponentSystem
     [RegisterCommand()]
     static void ResetCommand(CommandArg[] args)
     {
+        Instance.UpdateInjectedComponentGroups();
+
         var entities = Instance.m_Group.Entity.ToArray();
 
         for (int i = 0; i < entities.Length; i++)
