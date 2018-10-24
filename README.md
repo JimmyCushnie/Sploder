@@ -1,2 +1,2 @@
-# ECS Playground
-An exercise in Unity's Entity Component System
+# Sploder
+A beautiful showcase of Unity's Entity Component System
