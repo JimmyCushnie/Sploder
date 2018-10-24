@@ -1,0 +1,3 @@
+[submodule "Assets/command_terminal"]
+	path = Assets/command_terminal
+	url = https://github.com/JimmyCushnie/command_terminal.git
