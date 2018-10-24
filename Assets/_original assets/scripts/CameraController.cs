@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] Camera camera;
+    [SerializeField] new Camera camera;
 
     public static float speed = 50f;
     public static float sensitivity = 0.01f;

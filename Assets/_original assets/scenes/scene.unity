@@ -373,6 +373,7 @@ MonoBehaviour:
   ToggleFullHotkey: '#`'
   BufferSize: 512
   ConsoleFont: {fileID: 12800000, guid: 5aa82cdaed90b004aa25796dc86bd8c5, type: 3}
+  ConsoleFontSize: 20
   InputCaret: '>'
   ShowGUIButtons: 0
   RightAlignButtons: 0
